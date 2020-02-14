@@ -34,7 +34,7 @@ class Matrix {
             for(int k = 0; k < cols; k++) {
                sum += matrix[i][k]*n.matrix[k][0];
             }  
-            result.matrix[i][0] = max(0,sum);
+            result.matrix[i][0] = (1.0 - exp(-2*sum))/(1.0 + exp(-2*sum));
            }
      }
      result.matrix[rows][0] = 1;

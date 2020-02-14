@@ -8,11 +8,11 @@ class Agent{
   private float W;
   private float A;
   private float[] out_1 = {0,0,0,0};
-  public int R;
+  public float R;
   public NeuralNet brain;
   public int energe;
   public int child;
-  Agent(float x, float y, float a0, int r){
+  Agent(float x, float y, float a0, float r){
     pos_X = x;
     pos_Y = y;
     V_X = 0;
@@ -116,9 +116,10 @@ class Agent{
   public void think(float[] inputsArr){
     float a = 2*PI/insize;
     for(int i=0;i<insize;i++){
-      float c = inputsArr[i*3]+inputsArr[i*3+1]+inputsArr[i*3+2];
-      stroke(1.0-c/3.0);
-      line(pos_X+1.5*R*cos(A+a*i),pos_Y+1.5*R*sin(A+a*i),pos_X+5*R*cos(A+a*i),pos_Y+5*R*sin(A+a*i));
+      //float c = inputsArr[i*3]+inputsArr[i*3+1]+inputsArr[i*3+2];
+      //c = 255*c/3.0;
+      stroke(255-255*inputsArr[i*3],255-255*inputsArr[i*3+1],255-255*inputsArr[i*3+2]);
+      line(pos_X+1.5*R*cos(A+a*i),pos_Y+1.5*R*sin(A+a*i),pos_X+2*R*cos(A+a*i),pos_Y+2*R*sin(A+a*i));
     }
     inputsArr[insize*3 + 2]=out_1[0];
     inputsArr[insize*3 + 3]=out_1[1];
@@ -135,7 +136,7 @@ class Agent{
   public void display(){
     float h_x = pos_X + R * cos(A);
     float h_y = pos_Y + R * sin(A);
-    float c = energe/1200.0 * 100 + 155;
+    float c = energe/1200.0 * 50 + 205;
     fill(c);
     circle(pos_X,pos_Y,2*R);
     line(pos_X,pos_Y,h_x, h_y);

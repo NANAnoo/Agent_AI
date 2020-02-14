@@ -5,10 +5,14 @@ List<Agent> eater, producer;
 float food_R = 0;
 float food_X = 0;
 float food_Y = 0;
-int group_size = 12;
-int insize = 16;
-int r_e = 20;
-int r_p = 20;
+int group_size = 20;
+int insize = 8;
+float r_e = 7;
+float r_p = 7;
+
+//float wall_x = width/2;
+//float wall_y = height/2;
+//float wall_r = min(height,width)/2;
 
 void newFood(){
   food_R = random(80,100);
@@ -96,6 +100,8 @@ void update(){
     }
     for(int j=0;j<insize;j++)
       to_producer[j] = min[j];
+    // get dis to wall
+    
     // process input
     float []input = new float[insize*3 + 6];
     for(int j=0;j<insize*3;j+=3){
@@ -107,7 +113,7 @@ void update(){
     input[insize*3] = 2*abs(producer.get(i).pos_X -width/2)/width;
     input[insize*3 +1] = 2*abs(producer.get(i).pos_Y -height/2)/height;
     producer.get(i).think(input);
-    if(!producer.get(i).update(0.01)){
+    if(!producer.get(i).update(0.05)){
       producer.remove(i);
       i--;
     }
@@ -162,7 +168,7 @@ void update(){
     input[insize*3] = 2*abs(eater.get(i).pos_X -width/2)/width;
     input[insize*3 +1] = 2*abs(eater.get(i).pos_Y -height/2)/height;
     eater.get(i).think(input);
-    if(!eater.get(i).update(0.01)){
+    if(!eater.get(i).update(0.05)){
       eater.remove(i);
       i--;
     }
